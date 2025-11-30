@@ -1,0 +1,59 @@
+#include "include/gmt.h"
+char *read_line_from_stdin()
+{
+	static char buffer[256];
+	memset(buffer, 0, sizeof(buffer));
+	int ch;
+	while ((ch = getchar()) != '\n' && ch != EOF) {
+		size_t len = strlen(buffer);
+		if (len < sizeof(buffer) - 1) {
+			buffer[len] = (char)ch;
+			buffer[len + 1] = '\0';
+		}
+	}
+	if (ch == EOF && strlen(buffer) == 0) {
+		return NULL; // EOF and no data
+	}
+	return buffer;
+}
+void on_exit(int unused)
+{
+	printf("\033[?25h"); // Show cursor
+}
+int main(int argc, char **argv)
+{
+	// Register exit handler
+	signal(SIGINT, on_exit);
+	signal(SIGTERM, on_exit);
+	on_exit(0);
+	// Check if stdin is FIFO
+	struct stat st;
+	if (fstat(fileno(stdin), &st) == -1) {
+		perror("fstat");
+		return 1;
+	}
+	if (!S_ISFIFO(st.st_mode)) {
+		fprintf(stderr, "Error: stdin is not a FIFO\n");
+		return 1;
+	}
+	while (1) {
+		char *line = read_line_from_stdin();
+		double x, y, z, w;
+		if (line == NULL) {
+			return 0;
+		}
+		if (sscanf(line, "%lf %lf %lf %lf", &x, &y, &z, &w) != 4) {
+			fprintf(stderr, "Invalid input line: %s\n", line);
+			continue;
+		}
+		struct compass_and_level cal = compute_compass_and_level_data(x, y, z, w);
+		if (argc >= 2 && strcmp(argv[1], "compass") == 0) {
+			show_compass_matrix(cal.angle);
+		} else if (argc >= 2 && strcmp(argv[1], "level") == 0) {
+			show_level_matrix(cal.roll, cal.pitch);
+		} else {
+			fprintf(stderr, "Specify 'compass' or 'level' as argument\n");
+		}
+	}
+	return 0;
+}

@@ -1,0 +1,110 @@
+#include "include/gmt.h"
+void show_level_matrix(double pitch_deg, double roll_deg)
+{
+	char *buf = malloc(65536);
+	setvbuf(stdout, buf, _IOFBF, 65536);
+	printf("\033[?25l");
+	// Compute pitch and roll (degrees)
+	double pitch = pitch_deg * M_PI / 180.0;
+	double roll = roll_deg * M_PI / 180.0;
+	double radius = SIZE / 2.0 - 1; // circle radius
+	// Grid and center
+	char grid[SIZE][SIZE];
+	int cx = SIZE / 2;
+	int cy = SIZE / 2;
+	// Initialize grid with spaces
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE; j++) {
+			grid[i][j] = ' ';
+		}
+	}
+	// Fill circle area
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE; j++) {
+			double dx = j - cx;
+			double dy = i - cy;
+			if (dx * dx + dy * dy < radius * radius) {
+				grid[i][j] = '#'; // inside circle
+			} else {
+				grid[i][j] = ' '; // outside circle
+			}
+			if (dx * dx + dy * dy == 0) {
+				grid[i][j] = 'X'; // center marker
+			}
+		}
+	}
+	// Draw rotated projection
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE; j++) {
+			double dx = j - cx; // local X relative to center
+			double dy = i - cy; // local Y relative to center
+			double dz = 0; // circle lies in Z=0 plane
+
+			if (dx * dx + dy * dy >= radius * radius) {
+				continue; // skip outside radius
+			}
+			// Rotate about X axis
+			double dy1 = dy * cos(pitch) - dz * sin(pitch);
+			double dz1 = dy * sin(pitch) + dz * cos(pitch);
+
+			// Rotate about Y axis
+			double dx2 = dx * cos(roll) + dz1 * sin(roll);
+			double dz2 = -dx * sin(roll) + dz1 * cos(roll);
+
+			// Orthographic projection onto XY plane
+			int gx = (int)round(cx + dx2);
+			int gy = (int)round(cy + dy1);
+
+			// Bounds check and mark projection
+			if (gx > 0 && gx < SIZE - 1 && gy > 0 && gy < SIZE - 1) {
+				if (grid[gy][gx] == '#') {
+					grid[gy][gx] = '.';
+				}
+			}
+		}
+	}
+
+	// Project elevated center marker
+	const double center_height = 9.0;
+	double center_dx = 0.0;
+	double center_dy = 0.0;
+	double center_dz = center_height;
+
+	double center_dy1 = center_dy * cos(pitch) - center_dz * sin(pitch);
+	double center_dz1 = center_dy * sin(pitch) + center_dz * cos(pitch);
+	double center_dx2 = center_dx * cos(roll) + center_dz1 * sin(roll);
+
+	int cx_proj = (int)round(cx - center_dx2);
+	int cy_proj = (int)round(cy + center_dy1);
+
+	if (cx_proj >= 0 && cx_proj < SIZE && cy_proj >= 0 && cy_proj < SIZE) {
+		grid[cy_proj][cx_proj] = 'X';
+	}
+	printf("\033[0H");
+	fflush(stdout);
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	int x_offset = (w.ws_col - SIZE * 2) / 2 - 1;
+	int y_offset = (w.ws_row - SIZE) / 2;
+	for (int i = 0; i < y_offset; i++) {
+		printf("\n");
+	}
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < x_offset; j++) {
+			printf(" ");
+		}
+		for (int j = 0; j < SIZE; j++) {
+			if (grid[i][j] == '.') {
+				printf("\033[37m█▊");
+			} else if (grid[i][j] == '#') {
+				printf("\033[31m█▊");
+			} else if (grid[i][j] == 'X') {
+				printf("\033[32m█▊");
+			} else {
+				printf("  ");
+			}
+		}
+		printf("\n");
+	}
+	fflush(stdout);
+}
