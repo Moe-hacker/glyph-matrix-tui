@@ -2,6 +2,7 @@
 # Warning:
 - Some code are written by ChatGPT
 - This way is not a general way for reading sensor data on every devices, you may need to adapt it for your device
+- The compass is not calibrated, so it may have some offsets
 - Use at your own risk
 
 # Steps to reproduce:
@@ -24,6 +25,5 @@ termux-sensor -c;clear;termux-sensor -d 100 -s "Your sensor name"|stdbuf -o0 jq 
 # compass
 termux-sensor -c;clear;termux-sensor -d 100 -s "Your sensor name"|stdbuf -o0 jq -r '."Your sensor name".values[0:4] | @sh '|./gmt compass
 ```
-```
-The sensor name can be found by running `termux-sensor -l`.
-For Samsung Galaxy Watch 7, the sensor name is `"GeoMag Rotation Vector Sensor"`, and for xiaomi 15, it's `"rotation vector  Non-wakeup"`.
+The sensor name can be found by running `termux-sensor -l`.      
+For Samsung Galaxy Watch 7, the sensor name is `"GeoMag Rotation Vector Sensor"`, and for my xiaomi 15 phone, it's `"rotation vector  Non-wakeup"`. So you need to find the correct sensor name for your device.
