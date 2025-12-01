@@ -8,6 +8,7 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	double pitch = pitch_deg * M_PI / 180.0;
 	pitch = -pitch; // Invert pitch for display
 	double roll = roll_deg * M_PI / 180.0;
+	roll = -roll; // Invert roll for display
 	double radius = SIZE / 2.0 - 1; // circle radius
 	// Grid and center
 	char grid[SIZE][SIZE];
