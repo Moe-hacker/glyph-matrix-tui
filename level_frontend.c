@@ -6,6 +6,7 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	printf("\033[?25l");
 	// Compute pitch and roll (degrees)
 	double pitch = pitch_deg * M_PI / 180.0;
+	pitch = -pitch; // Invert pitch for display
 	double roll = roll_deg * M_PI / 180.0;
 	double radius = SIZE / 2.0 - 1; // circle radius
 	// Grid and center
@@ -74,7 +75,7 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	double center_dz1 = center_dy * sin(pitch) + center_dz * cos(pitch);
 	double center_dx2 = center_dx * cos(roll) + center_dz1 * sin(roll);
 
-	int cx_proj = (int)round(cx - center_dx2);
+	int cx_proj = (int)round(cx + center_dx2);
 	int cy_proj = (int)round(cy + center_dy1);
 
 	if (cx_proj >= 0 && cx_proj < SIZE && cy_proj >= 0 && cy_proj < SIZE) {
