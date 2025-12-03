@@ -31,9 +31,9 @@ void show_compass_matrix(double angle_deg)
 		double xr = x * cos(angle_rad) - y * sin(angle_rad);
 		double yr = x * sin(angle_rad) + y * cos(angle_rad);
 
-		// Scale to grid length (use length 5 to avoid out-of-bounds)
-		int gx = cx + (int)round(xr * 5);
-		int gy = cy + (int)round(yr * 5);
+		// Scale to grid length (use length 6)
+		int gx = cx + (int)round(xr * 6);
+		int gy = cy + (int)round(yr * 6);
 
 		// Bounds clamp
 		if (gx < 0) {
