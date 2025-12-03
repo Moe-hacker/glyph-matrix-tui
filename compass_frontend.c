@@ -11,7 +11,7 @@ void show_compass_matrix(double angle_deg)
 
 	// Create empty grid
 	char **grid = init_matrix_grid();
-	init_matrix(grid, 1, 'W');
+	init_matrix(grid, 1, '2');
 	// Center coordinates
 	int cx = SIZE / 2;
 	int cy = SIZE / 2;
@@ -48,8 +48,8 @@ void show_compass_matrix(double angle_deg)
 		if (gy >= SIZE) {
 			gy = SIZE - 1;
 		}
-		if (grid[gy][gx] != 'W') {
-			while (grid[gy][gx] != 'W') {
+		if (grid[gy][gx] == '0') {
+			while (grid[gy][gx] == '0') {
 				if (gx > SIZE / 2) {
 					gx--;
 				} else if (gx < SIZE / 2) {
@@ -71,7 +71,7 @@ void show_compass_matrix(double angle_deg)
 		int err = dx + dy;
 
 		for (;;) {
-			if (grid[y0][x0] == 'W') {
+			if (grid[y0][x0] != '0') {
 				grid[y0][x0] = dirs[k].ch;
 			}
 			if (x0 == x1 && y0 == y1) {

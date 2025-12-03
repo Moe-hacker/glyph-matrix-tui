@@ -39,7 +39,7 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 			// Bounds check and mark projection
 			if (gx > 0 && gx < SIZE - 1 && gy > 0 && gy < SIZE - 1) {
 				if (grid[gy][gx] == 'R') {
-					grid[gy][gx] = 'W';
+					grid[gy][gx] = '2';
 				}
 			}
 		}

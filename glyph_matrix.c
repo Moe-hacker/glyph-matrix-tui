@@ -14,7 +14,7 @@ void init_matrix(char **grid, bool mark_center, char fill_char)
 {
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
-			grid[i][j] = ' ';
+			grid[i][j] = '0';
 		}
 	}
 	// Initialize grid
