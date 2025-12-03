@@ -1,4 +1,12 @@
 #include "include/gmt.h"
+/*
+ * Matrix format:
+ * ' ' - empty
+ * 'R' - red
+ * 'G' - green
+ * 'B' - blue
+ * 'W' - white
+ */
 void init_matrix(char **grid, bool mark_center, char fill_char)
 {
 	for (int i = 0; i < SIZE; i++) {
@@ -49,6 +57,8 @@ void print_matrix(char **grid)
 				printf("\033[31m█▊");
 			} else if (grid[i][j] == 'G') {
 				printf("\033[32m█▊");
+			} else if (grid[i][j] == 'B') {
+				printf("\033[34m█▊");
 			} else if (grid[i][j] == 'W') {
 				printf("\033[37m█▊");
 			} else {
