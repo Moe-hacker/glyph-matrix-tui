@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	if (argc < 2) {
+		int mode = 0; // 0: compass, 1: level
 		while (1) {
 			char *line = read_line_from_stdin();
 			double x, y, z, w, sx, sy, sz;
@@ -55,7 +56,6 @@ int main(int argc, char **argv)
 			if (sscanf(line, "%lf %lf %lf", &sx, &sy, &sz) != 3) {
 				continue;
 			}
-			int mode = 0;
 			if (shake_detection(sx, sy, sz)) {
 				mode = 1 - mode;
 			}
