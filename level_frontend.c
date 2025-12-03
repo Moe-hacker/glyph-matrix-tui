@@ -67,7 +67,6 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 		} else {
 			first_bell = 1;
 		}
-		grid[cy_proj][cx_proj] = 'G';
 		grid[cy_proj - 1][cx_proj] = 'G';
 		grid[cy_proj + 1][cx_proj] = 'G';
 		grid[cy_proj][cx_proj - 1] = 'G';
