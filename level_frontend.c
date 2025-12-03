@@ -10,10 +10,7 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	roll = -roll; // Invert roll for display
 	double radius = SIZE / 2.0 - 1; // circle radius
 	// Grid and center
-	char **grid = malloc(SIZE * sizeof(char *));
-	for (int i = 0; i < SIZE; i++) {
-		grid[i] = malloc(SIZE * sizeof(char));
-	}
+	char **grid = init_matrix_grid();
 	init_matrix(grid, 1);
 	int cx = SIZE / 2;
 	int cy = SIZE / 2;
@@ -72,31 +69,7 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 		}
 		grid[cy_proj][cx_proj] = 'X';
 	}
-	printf("\033[0H");
-	fflush(stdout);
-	struct winsize w;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	int x_offset = (w.ws_col - SIZE * 2) / 2 - 1;
-	int y_offset = (w.ws_row - SIZE) / 2;
-	for (int i = 0; i < y_offset; i++) {
-		printf("\n");
-	}
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < x_offset; j++) {
-			printf(" ");
-		}
-		for (int j = 0; j < SIZE; j++) {
-			if (grid[i][j] == '.') {
-				printf("\033[37m█▊");
-			} else if (grid[i][j] == '#') {
-				printf("\033[31m█▊");
-			} else if (grid[i][j] == 'X') {
-				printf("\033[32m█▊");
-			} else {
-				printf("  ");
-			}
-		}
-		printf("\n");
-	}
-	fflush(stdout);
+	print_matrix(grid);
+	free(buf);
+	free_matrix_grid(grid);
 }

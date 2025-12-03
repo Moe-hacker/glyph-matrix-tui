@@ -28,3 +28,49 @@ void init_matrix(char **grid, bool mark_center)
 		}
 	}
 }
+void print_matrix(char **grid)
+{
+	// Output grid
+	printf("\033[0H");
+	fflush(stdout);
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	int x_offset = (w.ws_col - SIZE * 2) / 2 - 1;
+	int y_offset = (w.ws_row - SIZE) / 2;
+	for (int i = 0; i < y_offset; i++) {
+		printf("\n");
+	}
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < x_offset; j++) {
+			printf(" ");
+		}
+		for (int j = 0; j < SIZE; j++) {
+			if (grid[i][j] == '#') {
+				printf("\033[37m█▊");
+			} else if (grid[i][j] == 'N') {
+				printf("\033[31m█▊");
+			} else if (grid[i][j] == 'X') {
+				printf("\033[32m█▊");
+			} else {
+				printf("  ");
+			}
+		}
+		printf("\n");
+	}
+	fflush(stdout);
+}
+char **init_matrix_grid(void)
+{
+	char **grid = malloc(SIZE * sizeof(char *));
+	for (int i = 0; i < SIZE; i++) {
+		grid[i] = malloc(SIZE * sizeof(char));
+	}
+	return grid;
+}
+void free_matrix_grid(char **grid)
+{
+	for (int i = 0; i < SIZE; i++) {
+		free(grid[i]);
+	}
+	free(grid);
+}

@@ -22,3 +22,6 @@ void show_level_matrix(double pitch_deg, double roll_deg);
 void watchdog(void);
 bool shake_detection(double x, double y, double z);
 void init_matrix(char **grid, bool mark_center);
+void print_matrix(char **grid);
+char **init_matrix_grid(void);
+void free_matrix_grid(char **grid);
