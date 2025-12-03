@@ -52,12 +52,12 @@ void show_compass_matrix(double angle_deg)
 			while (grid[gy][gx] != 'W') {
 				if (gx > SIZE / 2) {
 					gx--;
-				} else {
+				} else if (gx < SIZE / 2) {
 					gx++;
 				}
 				if (gy > SIZE / 2) {
 					gy--;
-				} else {
+				} else if (gy < SIZE / 2) {
 					gy++;
 				}
 			}
