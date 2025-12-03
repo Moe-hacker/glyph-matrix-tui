@@ -10,8 +10,11 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	roll = -roll; // Invert roll for display
 	double radius = SIZE / 2.0 - 1; // circle radius
 	// Grid and center
-	char grid[SIZE][SIZE];
-	init_matrix((char **)grid, 1);
+	char **grid = malloc(SIZE * sizeof(char *));
+	for (int i = 0; i < SIZE; i++) {
+		grid[i] = malloc(SIZE * sizeof(char));
+	}
+	init_matrix(grid, 1);
 	int cx = SIZE / 2;
 	int cy = SIZE / 2;
 	// Draw rotated projection

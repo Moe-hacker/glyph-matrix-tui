@@ -10,8 +10,11 @@ void show_compass_matrix(double angle_deg)
 	double angle_rad = angle_deg * M_PI / 180.0;
 
 	// Create empty grid
-	char grid[SIZE][SIZE];
-	init_matrix((char **)grid, 1);
+	char **grid = malloc(SIZE * sizeof(char *));
+	for (int i = 0; i < SIZE; i++) {
+		grid[i] = malloc(SIZE * sizeof(char));
+	}
+	init_matrix(grid, 1);
 	// Center coordinates
 	int cx = SIZE / 2;
 	int cy = SIZE / 2;
