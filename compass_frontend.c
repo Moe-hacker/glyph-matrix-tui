@@ -63,13 +63,28 @@ void show_compass_matrix(double angle_deg)
 			}
 		}
 		grid[gy][gx] = dirs[k].ch;
-		// Connect to center
-		int steps = fmax(fabs(gx - cx), fabs(gy - cy));
-		for (int s = 1; s < steps; s++) {
-			int ix = cx + (gx - cx) * s / steps;
-			int iy = cy + (gy - cy) * s / steps;
-			if (grid[iy][ix] == 'W') {
-				grid[iy][ix] = dirs[k].ch;
+		// Connect to center using Bresenham's line algorithm for smoother, continuous lines
+		int x0 = cx, y0 = cy;
+		int x1 = gx, y1 = gy;
+		int dx = abs(x1 - x0), sx = (x0 < x1) ? 1 : -1;
+		int dy = -abs(y1 - y0), sy = (y0 < y1) ? 1 : -1;
+		int err = dx + dy;
+
+		for (;;) {
+			if (grid[y0][x0] == 'W') {
+				grid[y0][x0] = dirs[k].ch;
+			}
+			if (x0 == x1 && y0 == y1) {
+				break;
+			}
+			int e2 = 2 * err;
+			if (e2 >= dy) {
+				err += dy;
+				x0 += sx;
+			}
+			if (e2 <= dx) {
+				err += dx;
+				y0 += sy;
 			}
 		}
 		// Check for north marker
