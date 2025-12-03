@@ -43,6 +43,7 @@ void print_matrix(char **grid)
 {
 	// Output grid
 	printf("\033[0H");
+	fflush(stdout);
 	printf("\033[0J");
 	fflush(stdout);
 	struct winsize w;
