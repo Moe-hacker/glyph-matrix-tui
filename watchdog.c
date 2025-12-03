@@ -11,7 +11,7 @@ void watchdog(void)
 		system("killall -9 gmt");
 		exit(0);
 	} else {
-		system("logcat -c");
+		system("logcat -c 2>&1 >/dev/null");
 		system("logcat|grep --line-buffered -m1 -i visibilityChanged 2>&1 >/dev/null");
 		printf("\033[?25h");
 		exit(0);

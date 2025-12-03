@@ -11,29 +11,9 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	double radius = SIZE / 2.0 - 1; // circle radius
 	// Grid and center
 	char grid[SIZE][SIZE];
+	init_matrix((char **)grid, 1);
 	int cx = SIZE / 2;
 	int cy = SIZE / 2;
-	// Initialize grid with spaces
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE; j++) {
-			grid[i][j] = ' ';
-		}
-	}
-	// Fill circle area
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE; j++) {
-			double dx = j - cx;
-			double dy = i - cy;
-			if (dx * dx + dy * dy < radius * radius) {
-				grid[i][j] = '#'; // inside circle
-			} else {
-				grid[i][j] = ' '; // outside circle
-			}
-			if (dx * dx + dy * dy == 0) {
-				grid[i][j] = 'X'; // center marker
-			}
-		}
-	}
 	// Draw rotated projection
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
