@@ -6,6 +6,9 @@
  * 'G' - green
  * 'B' - blue
  * 'W' - white
+ * '1' - Dark Gray
+ * '2' - Gray
+ * '3' - Light Gray
  */
 void init_matrix(char **grid, bool mark_center, char fill_char)
 {
@@ -60,7 +63,13 @@ void print_matrix(char **grid)
 			} else if (grid[i][j] == 'B') {
 				printf("\033[34m█▊");
 			} else if (grid[i][j] == 'W') {
-				printf("\033[37m█▊");
+				printf("\033[255m█▊");
+			} else if (grid[i][j] == '1') {
+				printf("\033[240m█▊");
+			} else if (grid[i][j] == '2') {
+				printf("\033[245m█▊");
+			} else if (grid[i][j] == '3') {
+				printf("\033[250m█▊");
 			} else {
 				printf("  ");
 			}
