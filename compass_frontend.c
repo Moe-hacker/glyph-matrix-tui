@@ -39,17 +39,17 @@ void show_compass_matrix(double angle_deg)
 		if (gx < 0) {
 			gx = 0;
 		}
-		if (gx >= SIZE) {
+		if (gx >= SIZE - 1) {
 			gx = SIZE - 1;
 		}
 		if (gy < 0) {
 			gy = 0;
 		}
-		if (gy >= SIZE) {
+		if (gy >= SIZE - 1) {
 			gy = SIZE - 1;
 		}
-		if (grid[gy][gx] != '3') {
-			while (grid[gy][gx] != '3') {
+		if (grid[gy][gx] == '0') {
+			while (grid[gy][gx] == '0') {
 				if (gx > SIZE / 2) {
 					gx--;
 				} else if (gx < SIZE / 2) {
@@ -71,7 +71,7 @@ void show_compass_matrix(double angle_deg)
 		int err = dx + dy;
 
 		for (;;) {
-			if (grid[y0][x0] != '0') {
+			if (grid[y0][x0] != '0' && grid[y0][x0] != 'G') {
 				grid[y0][x0] = dirs[k].ch;
 			}
 			if (x0 == x1 && y0 == y1) {
