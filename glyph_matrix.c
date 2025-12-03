@@ -48,7 +48,7 @@ void print_matrix(char **grid)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	int x_offset = (w.ws_col - SIZE * 2) / 2;
 	int y_offset = (w.ws_row - SIZE) / 2;
-	for (int i = 0; i < y_offset; i++) {
+	for (int i = 0; i < y_offset - 1; i++) {
 		printf("\n");
 	}
 	for (int i = 0; i < SIZE; i++) {
@@ -74,6 +74,7 @@ void print_matrix(char **grid)
 				printf("  ");
 			}
 		}
+		printf("\033[0m\n");
 	}
 	fflush(stdout);
 }
