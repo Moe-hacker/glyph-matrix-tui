@@ -76,4 +76,5 @@ void show_level_matrix(double pitch_deg, double roll_deg)
 	print_matrix(grid);
 	free(buf);
 	free_matrix_grid(grid);
+	setvbuf(stdout, NULL, _IONBF, 0);
 }

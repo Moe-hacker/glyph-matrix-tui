@@ -105,4 +105,5 @@ void show_compass_matrix(double angle_deg)
 	print_matrix(grid);
 	free(buf);
 	free_matrix_grid(grid);
+	setvbuf(stdout, NULL, _IONBF, 0);
 }
