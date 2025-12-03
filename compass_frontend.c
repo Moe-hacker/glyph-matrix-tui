@@ -37,13 +37,13 @@ void show_compass_matrix(double angle_deg)
 
 		// Bounds clamp
 		if (gx < 0) {
-			gx = 0;
+			gx = 1;
 		}
 		if (gx >= SIZE - 1) {
 			gx = SIZE - 2;
 		}
 		if (gy < 0) {
-			gy = 0;
+			gy = 1;
 		}
 		if (gy >= SIZE - 1) {
 			gy = SIZE - 2;
