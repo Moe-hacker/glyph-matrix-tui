@@ -50,6 +50,7 @@ void print_matrix(char **grid)
 	int y_offset = (w.ws_row - SIZE) / 2;
 	for (int i = 0; i < y_offset - 2; i++) {
 		printf("\n");
+		fflush(stdout);
 	}
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < x_offset; j++) {
