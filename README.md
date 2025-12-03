@@ -21,9 +21,11 @@
 # How to run:
 ```
 # level
-termux-sensor -c;clear;termux-sensor -d 100 -s "Your sensor name"|stdbuf -o0 jq -r '."Your sensor name".values[0:4] | @sh '|./gmt level
+termux-sensor -c;clear;termux-sensor -d 100 -s "Your Rotation Vector sensor name"|stdbuf -o0 jq -r '."Your Rotation Vector sensor name".values[0:4] | @sh '|./gmt level
 # compass
-termux-sensor -c;clear;termux-sensor -d 100 -s "Your sensor name"|stdbuf -o0 jq -r '."Your sensor name".values[0:4] | @sh '|./gmt compass
+termux-sensor -c;clear;termux-sensor -d 100 -s "Your Rotation Vector sensor name"|stdbuf -o0 jq -r '."Your Rotation Vector sensor name".values[0:4] | @sh '|./gmt compass
+# Shake to change
+termux-sensor -c;clear;termux-sensor -d 100 -s "Your Rotation Vector sensor name","Your Gyroscope sensor name"|stdbuf -o0 jq -r '."Your Rotation Vector sensor name".values[0:4], ."Your Gyroscope sensor name".values[0:3] | @sh '|./gmt
 ```
 The sensor name can be found by running `termux-sensor -l`.      
 For Samsung Galaxy Watch 7, the sensor name is `"GeoMag Rotation Vector Sensor"`, and for my xiaomi 15 phone, it's `"rotation vector  Non-wakeup"`. So you need to find the correct sensor name for your device.

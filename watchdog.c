@@ -20,7 +20,7 @@ void watchdog(void)
 bool shake_detection(double x, double y, double z)
 {
 	static int shake_count = 0;
-	const double SHAKE_THRESHOLD = 10.0; // Threshold for shake detection
+	const double SHAKE_THRESHOLD = 7.0; // Threshold for shake detection
 	double magnitude = sqrt(x * x + y * y + z * z);
 	if (magnitude > SHAKE_THRESHOLD) {
 		shake_count++;
