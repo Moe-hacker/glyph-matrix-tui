@@ -42,9 +42,7 @@ void init_matrix(char **grid, bool mark_center, char fill_char)
 void print_matrix(char **grid)
 {
 	// Output grid
-	printf("\033[0H");
-	fflush(stdout);
-	printf("\033[0J");
+	printf("\033[0G");
 	fflush(stdout);
 	struct winsize w;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
