@@ -18,12 +18,12 @@ void init_matrix(char **grid, bool mark_center)
 
 			// Inside circle check
 			if (dx * dx + dy * dy < radius * radius) {
-				grid[i][j] = '#'; // fill inside circle
+				grid[i][j] = 'W'; // fill inside circle
 			} else {
 				grid[i][j] = ' '; // outside circle
 			}
 			if (mark_center && dx * dx + dy * dy == 0) {
-				grid[i][j] = 'X'; // center marker
+				grid[i][j] = 'G'; // center marker
 			}
 		}
 	}
