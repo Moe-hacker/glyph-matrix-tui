@@ -63,13 +63,13 @@ void print_matrix(char **grid)
 			} else if (grid[i][j] == 'B') {
 				printf("\033[34m█▊");
 			} else if (grid[i][j] == 'W') {
-				printf("\033[255m█▊");
+				printf("\033[38;5;255m█▊");
 			} else if (grid[i][j] == '1') {
-				printf("\033[240m█▊");
+				printf("\033[38;5;240m█▊");
 			} else if (grid[i][j] == '2') {
-				printf("\033[245m█▊");
+				printf("\033[38;5;245m█▊");
 			} else if (grid[i][j] == '3') {
-				printf("\033[250m█▊");
+				printf("\033[38;5;250m█▊");
 			} else {
 				printf("  ");
 			}
