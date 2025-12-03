@@ -50,8 +50,16 @@ void show_compass_matrix(double angle_deg)
 		}
 		if (grid[gy][gx] != 'W') {
 			while (grid[gy][gx] != 'W') {
-				gx--;
-				gy--;
+				if (gx > SIZE / 2) {
+					gx--;
+				} else {
+					gx++;
+				}
+				if (gy > SIZE / 2) {
+					gy--;
+				} else {
+					gy++;
+				}
 			}
 		}
 		grid[gy][gx] = dirs[k].ch;
